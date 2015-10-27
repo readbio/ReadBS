@@ -7,6 +7,11 @@ package com.readbio.readbs;
 
 import java.io.File;
 import javax.swing.JFileChooser;
+import com.readbio.readbs.CallSolexaQA;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +20,7 @@ import javax.swing.JFileChooser;
 public class SolexaQAGUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form BismarkMapping
+     * Creates new form SolexaQAGUI
      */
     public SolexaQAGUI() {
         initComponents();
@@ -30,43 +35,16 @@ public class SolexaQAGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu4 = new javax.swing.JMenu();
-        menuBar1 = new java.awt.MenuBar();
-        menu1 = new java.awt.Menu();
-        menu2 = new java.awt.Menu();
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        readFastq = new javax.swing.JButton();
         txtRead1 = new javax.swing.JTextField();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-
-        jMenu4.setText("jMenu4");
-
-        menu1.setLabel("File");
-        menuBar1.add(menu1);
-
-        menu2.setLabel("Edit");
-        menu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu2ActionPerformed(evt);
-            }
-        });
-        menuBar1.add(menu2);
+        runDynamicTrim = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SolexaQA");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setEnabled(false);
 
-        jLabel1.setText("DynamicTrim");
-        jLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        readFastq.setText("Read1");
+        readFastq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                readFastqActionPerformed(evt);
             }
         });
 
@@ -76,63 +54,66 @@ public class SolexaQAGUI extends javax.swing.JFrame {
             }
         });
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Edit");
-        jMenuBar1.add(jMenu3);
-
-        setJMenuBar(jMenuBar1);
+        runDynamicTrim.setText("Run DynamicTrim");
+        runDynamicTrim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runDynamicTrimActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(txtRead1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtRead1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
-                    .addComponent(jLabel1))
-                .addContainerGap(80, Short.MAX_VALUE))
+                    .addComponent(runDynamicTrim)
+                    .addComponent(readFastq))
+                .addGap(423, 423, 423))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRead1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addContainerGap(191, Short.MAX_VALUE))
+                    .addComponent(readFastq)
+                    .addComponent(txtRead1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(runDynamicTrim)
+                .addContainerGap(362, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void txtRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRead1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRead1ActionPerformed
+
+    private void readFastqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readFastqActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
         txtRead1.setText(filename);
-                
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_readFastqActionPerformed
 
-    private void txtRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRead1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRead1ActionPerformed
-
-    private void menu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menu2ActionPerformed
+    private void runDynamicTrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runDynamicTrimActionPerformed
+        try {
+            // TODO add your handling code here:
+            String solexaQAPath = "/scratch/conte/x/xie186/software/SolexaQA_1.12";
+            String temFastqPath = txtRead1.getText();
+            CallSolexaQA testCallQA = new CallSolexaQA(solexaQAPath, temFastqPath);
+        } catch (IOException ex) {
+            Logger.getLogger(SolexaQAGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,ex.getMessage());
+        }
+         
+    }//GEN-LAST:event_runDynamicTrimActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,7 +141,6 @@ public class SolexaQAGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SolexaQAGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -171,16 +151,8 @@ public class SolexaQAGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
-    private java.awt.Menu menu1;
-    private java.awt.Menu menu2;
-    private java.awt.MenuBar menuBar1;
+    private javax.swing.JButton readFastq;
+    private javax.swing.JButton runDynamicTrim;
     private javax.swing.JTextField txtRead1;
     // End of variables declaration//GEN-END:variables
 }
