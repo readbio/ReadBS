@@ -7,7 +7,7 @@ package com.readbio.readbs;
 
 import java.io.File;
 import javax.swing.JFileChooser;
-import com.readbio.readbs.CallSolexaQA;
+import com.readbio.readbs.pipeline.CallSolexaQA;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,15 +103,7 @@ public class SolexaQAGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_readFastqActionPerformed
 
     private void runDynamicTrimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runDynamicTrimActionPerformed
-        try {
-            // TODO add your handling code here:
-            String solexaQAPath = "/scratch/conte/x/xie186/software/SolexaQA_1.12";
-            String temFastqPath = txtRead1.getText();
-            CallSolexaQA testCallQA = new CallSolexaQA(solexaQAPath, temFastqPath);
-        } catch (IOException ex) {
-            Logger.getLogger(SolexaQAGUI.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null,ex.getMessage());
-        }
+        
          
     }//GEN-LAST:event_runDynamicTrimActionPerformed
 

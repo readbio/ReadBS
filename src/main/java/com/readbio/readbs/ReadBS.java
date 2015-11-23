@@ -6,8 +6,10 @@
 package com.readbio.readbs;
 
 import com.readbio.readbs.Frames.FrameSolexaQA;
-import com.readbio.readbs.Frames.FrameSolexaQATest;
-import java.awt.GridBagLayout;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,13 +17,27 @@ import java.awt.GridBagLayout;
  */
 public class ReadBS extends javax.swing.JFrame {
     
-    
+    // use this number to control the location of internalFrame using setLocation()
+
+    private String projectDir;
     /**
      * Creates new form ReadBS
+     * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
-    public ReadBS() {
+    public ReadBS() throws URISyntaxException, IOException {
         initComponents();
+        this.setProjectDir(ReadBSApp.getProjectDir());
+        this.jLabelProjectDir.setText(projectDir);
+        this.setTitle("Working directory" + this.getProjectDir());
+        System.out.println("Working directory: " + this.getProjectDir() + " : code in "
+                            + this.getClass().getName());
     }
+
+//    ReadBS(String inProjectDir) {
+//        projectDir = new String(inProjectDir);
+//        initComponents();
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,6 +49,8 @@ public class ReadBS extends javax.swing.JFrame {
     private void initComponents() {
 
         desktop = new javax.swing.JDesktopPane();
+        jLabelProjectDir = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -45,16 +63,37 @@ public class ReadBS extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        desktop.setBackground(new java.awt.Color(240, 240, 240));
+        desktop.setToolTipText("");
+        desktop.setName(""); // NOI18N
+
+        jLabelProjectDir.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Working Directory: ");
+
         javax.swing.GroupLayout desktopLayout = new javax.swing.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 769, Short.MAX_VALUE)
+            .addGroup(desktopLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelProjectDir, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGroup(desktopLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelProjectDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(462, Short.MAX_VALUE))
         );
+        desktop.setLayer(jLabelProjectDir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktop.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("File");
 
@@ -69,11 +108,6 @@ public class ReadBS extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Tools");
-        jMenu2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu2ActionPerformed(evt);
-            }
-        });
 
         jMenuItemSolexaQA.setText("SolexaQA");
         jMenuItemSolexaQA.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +149,7 @@ public class ReadBS extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -126,21 +161,17 @@ public class ReadBS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu2ActionPerformed
-
     private void jMenuItemSolexaQAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSolexaQAActionPerformed
-        // TODO add your handling code here:
-        
-        FrameSolexaQA f = new FrameSolexaQA();
+        FrameSolexaQA f = null;
+        try {
+            f = new FrameSolexaQA(this.getProjectDir());
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(ReadBS.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ReadBS.class.getName()).log(Level.SEVERE, null, ex);
+        }
         desktop.add(f);
         f.setVisible(true);
-        /*
-        FrameSolexaQATest f = new FrameSolexaQATest();
-        desktop.add(f);
-        f.setVisible(true);
-        */
     }//GEN-LAST:event_jMenuItemSolexaQAActionPerformed
 
     /**
@@ -174,13 +205,21 @@ public class ReadBS extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ReadBS().setVisible(true);
+                try {
+                    new ReadBS().setVisible(true);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(ReadBS.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(ReadBS.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktop;
+    private javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabelProjectDir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -191,4 +230,14 @@ public class ReadBS extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSolexaQA;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
+
+
+    public String getProjectDir() {
+        return projectDir;
+    }
+
+    private void setProjectDir(String temProjectDir) {
+        projectDir = temProjectDir;
+    }
+    
 }

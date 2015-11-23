@@ -5,15 +5,32 @@
  */
 package com.readbio.readbs.Frames.Panels;
 
+import com.readbio.readbs.pipeline.CallSolexaQA;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+
 /**
- *
  * @author Shaojun
  */
 public class PanelSolexaQASE extends javax.swing.JPanel {
 
+    private String projectDir = null;
+   
     /**
      * Creates new form PanelSolexaQASE
+     * @param proDir
+     * @throws java.net.URISyntaxException
      */
+    public PanelSolexaQASE(String proDir) throws URISyntaxException, IOException {
+        initComponents();
+        this.setProjectDir(proDir);
+        System.out.println("XXX:" + this.getProjectDir() + ". Code in" + this.getClass().getName());
+    }
+
     public PanelSolexaQASE() {
         initComponents();
     }
@@ -27,66 +44,194 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPanelDynamicTrim = new javax.swing.JPanel();
+        jTxtSampleName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jTextRead = new javax.swing.JTextField();
+        jButtonChooseRead1 = new javax.swing.JButton();
+        jButtonTrimReads = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTxtLengthCutoff = new javax.swing.JTextField();
+        jLabProbCut = new javax.swing.JLabel();
+        jTxtProbCutCutoff = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTxtOutMessage = new javax.swing.JTextArea();
+        jProgressBar1 = new javax.swing.JProgressBar();
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jPasswordField1.setText("jPasswordField1");
+
+        jPanelDynamicTrim.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray), "DynamicTrim Parameter"));
+        jPanelDynamicTrim.setToolTipText("");
+        jPanelDynamicTrim.setVerifyInputWhenFocusTarget(false);
+
+        jTxtSampleName.setText("test");
+
+        jLabel1.setText("Sample Name");
+        jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
+
+        jTextRead.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq");
+        jTextRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                jTextReadActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Choose File");
+        jButtonChooseRead1.setText("Choose Read");
+        jButtonChooseRead1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChooseRead1ActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jButtonTrimReads.setText("TrimReads");
+        jButtonTrimReads.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTrimReadsActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Length Cutoff");
+        jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
+
+        jTxtLengthCutoff.setText("50");
+
+        jLabProbCut.setText("Probability Cutoff");
+        jLabProbCut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
+
+        jTxtProbCutCutoff.setText("0.05");
+
+        javax.swing.GroupLayout jPanelDynamicTrimLayout = new javax.swing.GroupLayout(jPanelDynamicTrim);
+        jPanelDynamicTrim.setLayout(jPanelDynamicTrimLayout);
+        jPanelDynamicTrimLayout.setHorizontalGroup(
+            jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDynamicTrimLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGroup(jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDynamicTrimLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonTrimReads))
+                    .addGroup(jPanelDynamicTrimLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtSampleName, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTxtLengthCutoff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabProbCut)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtProbCutCutoff, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelDynamicTrimLayout.createSequentialGroup()
+                        .addComponent(jButtonChooseRead1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextRead)))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(333, Short.MAX_VALUE))
+        jPanelDynamicTrimLayout.setVerticalGroup(
+            jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDynamicTrimLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtSampleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jTxtLengthCutoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabProbCut)
+                    .addComponent(jTxtProbCutCutoff, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonChooseRead1)
+                    .addComponent(jTextRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jButtonTrimReads))
         );
+
+        jTxtOutMessage.setColumns(20);
+        jTxtOutMessage.setRows(5);
+        jTxtOutMessage.setAutoscrolls(true);
+        jScrollPane1.setViewportView(jTxtOutMessage);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanelDynamicTrim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jProgressBar1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(77, 77, 77)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jPanelDynamicTrim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void jButtonTrimReadsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTrimReadsActionPerformed
+        String sampleName = jTxtSampleName.getText();
+        System.out.println("Sample Name is:" + sampleName);
+        CallSolexaQA testCallQA = new CallSolexaQA(projectDir);
+        try {
+            testCallQA.callSolexaqaSingleEndRead(jTextRead.getText(),
+                    jTxtSampleName.getText(),
+                    jTxtLengthCutoff.getText(),
+                    jTxtProbCutCutoff.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButtonTrimReadsActionPerformed
 
+    private void jButtonChooseRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseRead1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        String filename = f.getAbsolutePath();
+        jTextRead.setText(filename);
+    }//GEN-LAST:event_jButtonChooseRead1ActionPerformed
+
+    private void jTextReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextReadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextReadActionPerformed
+
+    public void setProjectDir(String proDir) throws URISyntaxException, IOException{
+        projectDir = proDir;
+    }
+    
+    public String getProjectDir() throws URISyntaxException, IOException{
+        return projectDir ;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonChooseRead1;
+    private javax.swing.JButton jButtonTrimReads;
+    private javax.swing.JLabel jLabProbCut;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanelDynamicTrim;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextRead;
+    private javax.swing.JTextField jTxtLengthCutoff;
+    private javax.swing.JTextArea jTxtOutMessage;
+    private javax.swing.JTextField jTxtProbCutCutoff;
+    private javax.swing.JTextField jTxtSampleName;
     // End of variables declaration//GEN-END:variables
 }
