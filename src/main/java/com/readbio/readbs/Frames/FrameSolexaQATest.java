@@ -5,7 +5,7 @@
  */
 package com.readbio.readbs.Frames;
 
-import com.readbio.readbs.Frames.Panels.PanelSolexaQAPE;
+import com.readbio.readbs.Frames.Panels.PanelSolexaQAPEBak;
 import com.readbio.readbs.Frames.Panels.PanelSolexaQASE;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -18,7 +18,7 @@ public class FrameSolexaQATest extends javax.swing.JInternalFrame {
 
     //
     GridBagLayout layout = new GridBagLayout();
-    PanelSolexaQAPE SolexaQAPE = new PanelSolexaQAPE();
+    PanelSolexaQAPEBak SolexaQAPE = new PanelSolexaQAPEBak();
     PanelSolexaQASE SolexaQASE = new PanelSolexaQASE();  
     
     
@@ -27,7 +27,7 @@ public class FrameSolexaQATest extends javax.swing.JInternalFrame {
      */
     public FrameSolexaQATest() {
         initComponents();
-        SolexaQAPE = new PanelSolexaQAPE();
+        SolexaQAPE = new PanelSolexaQAPEBak();
         SolexaQASE = new PanelSolexaQASE();
         //DynamicPanel.setLayout(layout);
         //GridBagConstraints c = new GridBagConstraints();

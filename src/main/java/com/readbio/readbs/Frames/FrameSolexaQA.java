@@ -6,6 +6,7 @@
 package com.readbio.readbs.Frames;
 
 import com.readbio.readbs.Frames.Panels.PanelSolexaQAPE;
+import com.readbio.readbs.Frames.Panels.PanelSolexaQAPEBak;
 import com.readbio.readbs.Frames.Panels.PanelSolexaQASE;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -16,7 +17,7 @@ import java.net.URISyntaxException;
  *
  * @author Shaojun
  */
-public class FrameSolexaQA extends javax.swing.JInternalFrame {
+public final class FrameSolexaQA extends javax.swing.JInternalFrame {
 
     
     GridBagLayout layout = new GridBagLayout();
@@ -33,6 +34,9 @@ public class FrameSolexaQA extends javax.swing.JInternalFrame {
     private String projectDir;
     /**
      * Creates new form FrameSolexaQA
+     * @param proDir
+     * @throws java.net.URISyntaxException
+     * @throws java.io.IOException
      */
     public FrameSolexaQA(String proDir) throws URISyntaxException, IOException {
         
@@ -43,7 +47,7 @@ public class FrameSolexaQA extends javax.swing.JInternalFrame {
               true);//iconifiable
          initComponents();
         this.setProjectDir(proDir);
-        SolexaQAPE = new PanelSolexaQAPE();
+        SolexaQAPE = new PanelSolexaQAPE(this.getProjectDir());
         SolexaQASE = new PanelSolexaQASE(this.getProjectDir());
         DynamicPanel.setLayout(layout);
         GridBagConstraints c = new GridBagConstraints();
@@ -83,14 +87,14 @@ public class FrameSolexaQA extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11)), "Choose Run Type")); // NOI18N
         jPanel1.setInheritsPopupMenu(true);
 
-        peRead.setText("Paired-end Reads");
+        peRead.setText("PE Reads");
         peRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 peReadActionPerformed(evt);
             }
         });
 
-        seRead.setText("Single-end Reads");
+        seRead.setText("SE Reads");
         seRead.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 seReadActionPerformed(evt);
@@ -121,7 +125,7 @@ public class FrameSolexaQA extends javax.swing.JInternalFrame {
         DynamicPanel.setLayout(DynamicPanelLayout);
         DynamicPanelLayout.setHorizontalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 392, Short.MAX_VALUE)
+            .addGap(0, 477, Short.MAX_VALUE)
         );
         DynamicPanelLayout.setVerticalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,25 +137,24 @@ public class FrameSolexaQA extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(DynamicPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DynamicPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DynamicPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(DynamicPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleDescription("Choose Run Type");
 
-        setBounds(0, 0, 578, 348);
+        setBounds(0, 0, 634, 413);
     }// </editor-fold>//GEN-END:initComponents
 
     private void peReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peReadActionPerformed

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package com.readbio.readbs.pipeline;
 
 import java.io.BufferedReader;
@@ -13,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -20,44 +22,69 @@ import java.util.logging.Logger;
  * @author Shaojun
  * @version v 0.0
  */
-public class CallSolexaQA {
+public final class SolexaQACMD {
     private final static Logger LOGGER = Logger.getLogger(CallSolexaQA.class.getName());
     private String projectDir;
+    private String solexaQAExe;
 
-    public CallSolexaQA(String proDir){
+    public SolexaQACMD(String proDir) throws IOException{
         this.setProjectDir(proDir);
+        this.solexaQAExe = getSolexaQAPath();
     }
     
     //test
-    public void callSolexaqaSingleEndRead(String fastqPath, 
+    public String[] getDynamicTrimCMD(String fastqPath, 
                                           String temSampleName, 
-                                          String temLengthCutoff,
-                                          String ProbCutCutoff) throws IOException, InterruptedException{
-        
-        String current = new java.io.File( "." ).getCanonicalPath();
-        System.out.println("Current dir: " + current);
-        
-        
-        //solexaQAPath 
-        String solexaQAPath = current + File.separator + "com/readbio/readbs/" + OSValidator.getOS() + "/SolexaQA/";
-        String solexaQAExe = solexaQAPath + File.separator + "SolexaQA++";
-        
+                                          String probCutCutoff) throws IOException, InterruptedException{
         //Output directory
-        String outDir = this.getProjectDir() + File.separator + temSampleName;
-        
+        String outDir = getOutDir(temSampleName);
         this.createOutputDir(outDir);
         
         System.out.println("Output directory: " + outDir);
         System.out.println("Project directory: " + projectDir);
         System.out.println("Project directory this.getProjectDir(): " + this.getProjectDir());
-        LOGGER.info("Call SolexaQA: ");
+        LOGGER.info("Call SolexaQA dynamictrim!");
         //String solexaQACMD = "perl " + dynamicTrimScript + " " + 
         //                      "-d " + outDir + " " + fastqPath;
-        String[] solexaQACMD = new String[]{solexaQAExe, "dynamictrim", "-d",
-                                            outDir, fastqPath};
-        System.out.println("Command line for dynamictrim: " + Arrays.toString(solexaQACMD));
-        runCommand(solexaQACMD);
+        String[] dynamicTrimCMD = new String[]{solexaQAExe, "dynamictrim", "-p", probCutCutoff, "-d",outDir, fastqPath};
+        LOGGER.info("Command line for dynamictrim: " + Arrays.toString(dynamicTrimCMD));
+        return dynamicTrimCMD;
     }   
+    
+    public String[] getLengthSortPECMD(String fastqPath1, 
+                                        String fastqPath2,
+                                        String temSampleName, 
+                                        String lengthCutoff) {
+        String trimmedRead1 = fastqPath1.substring(0, fastqPath1.lastIndexOf(".") +1) + "trimmed.gz";
+        String trimmedRead2 = fastqPath2.substring(0, fastqPath2.lastIndexOf(".") +1) + "trimmed.gz";
+        String outDir = getOutDir(temSampleName);
+        String[] lengthSortCMD = new String[]{solexaQAExe, "lengthsort", trimmedRead1, trimmedRead2, "-l", lengthCutoff, "-d",outDir};
+        LOGGER.log(Level.INFO, "Command line for lengthsort: {0}", Arrays.toString(lengthSortCMD));
+        return lengthSortCMD;
+    }
+    
+    public String[] getLengthSortPECMD(String fastqPath1, 
+                                        String temSampleName, 
+                                        String lengthCutoff) {
+        String trimmedRead1 = fastqPath1.substring(0, fastqPath1.lastIndexOf(".") +1) + "trimmed.gz";
+        String outDir = getOutDir(temSampleName);
+        String[] lengthSortCMD = new String[]{solexaQAExe, "lengthsort", trimmedRead1, "-l", lengthCutoff, "-d",outDir};
+        LOGGER.log(Level.INFO, "Command line for lengthsort: {0}", Arrays.toString(lengthSortCMD));
+        return lengthSortCMD;
+    }
+    
+    public String getOutDir(String temSampleName){
+        String outDir = this.getProjectDir() + File.separator + temSampleName;
+        return outDir;
+    }
+    public String getSolexaQAPath() throws IOException{
+        //current directory
+        String current = new java.io.File( "." ).getCanonicalPath();        
+        //solexaQAPath 
+        String solexaQAPath = current + File.separator + "com/readbio/readbs/" + OSValidator.getOS() + "/SolexaQA/";
+        String solexaQAExePath = solexaQAPath + File.separator + "SolexaQA++";
+        return solexaQAExePath;
+    }
     
     private void runCommand(String[] commondLine) throws IOException, InterruptedException{
         ProcessBuilder ps = new ProcessBuilder(commondLine);
@@ -101,10 +128,10 @@ public class CallSolexaQA {
     private void getProcessOutput(Process p){
         System.out.println("#OutputStream" + this.getClass().getName());
         OutputStream outputStream = p.getOutputStream();
-        try (PrintStream printStream = new PrintStream(outputStream)) {
-            printStream.println();
-            printStream.flush();
-        }
+        PrintStream printStream = new PrintStream(outputStream);
+        printStream.println();
+        printStream.flush();
+        printStream.close();
         System.out.println("#End" + ". Code in" + this.getClass().getName());
     }
     

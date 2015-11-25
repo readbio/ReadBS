@@ -34,11 +34,11 @@ public class PrepareExternalFiles {
         String jarDirScripts = "com/readbio/readbs/scripts/";
         // get the path of directory of jar file
         String jarDir = new File(".").getAbsolutePath();
-        copyInputStreamByLine(jar, jarDir, jarDirScripts);
+        copyInputStreamByByteBuffer(jar, jarDir, jarDirScripts);
         
         String operationSystem = OSValidator.getOS();
         String jarDirExApp = "com/readbio/readbs/" + operationSystem + "/";
-        copyInputStreamByLine(jar, jarDir, jarDirExApp);
+        copyInputStreamByByteBuffer(jar, jarDir, jarDirExApp);
         
     }
     public void copyInputStreamByLine(JarFile jar, String jarDir, String dir) throws IOException{
@@ -75,6 +75,42 @@ public class PrepareExternalFiles {
             }
             
             
+        }
+    }
+    
+    public void copyInputStreamByByteBuffer(JarFile jar, String jarDir, String dir) throws IOException{
+        Enumeration enumer = jar.entries();
+        while (enumer.hasMoreElements()) {
+            JarEntry file = (JarEntry) enumer.nextElement();            
+            File f = new File(jarDir + File.separator + file.getName());
+            f.setExecutable(true, true);
+            if(file.isDirectory() && !f.exists()){
+                f.mkdir();
+                continue;
+            }
+            if(file.toString().startsWith(dir) && !f.exists()){
+                
+                // Create files
+                f.createNewFile();
+                
+                //jugdge wether the file is executable or not
+                if(!f.setExecutable(true, true)){
+                    System.out.println("Set Executable failed!!!");
+                }
+                                
+                System.out.println("JarEntry: " + file + "\n"
+                                   +"File: " + f 
+                                   +"FileToString: " + f.toString());
+                FileOutputStream fos = new FileOutputStream(f);
+                InputStream input = jar.getInputStream(file);
+                byte[] buffer  = new byte[1024];
+                int read = 0;
+                while((read = input.read(buffer, 0, buffer.length)) != -1){
+                    fos.write(buffer, 0, read);
+                }
+                fos.close();
+                input.close();
+            }
         }
     }
     

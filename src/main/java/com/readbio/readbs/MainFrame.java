@@ -5,6 +5,7 @@
  */
 package com.readbio.readbs;
 
+import com.readbio.readbs.Frames.FrameBismarkGenoIndex;
 import com.readbio.readbs.Frames.FrameSolexaQA;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -53,6 +54,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemSolexaQA = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -85,6 +87,14 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Tools");
+
+        jMenuItem2.setText("BismarkIndex");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
 
         jMenuItemSolexaQA.setText("SolexaQA");
         jMenuItemSolexaQA.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +161,13 @@ public class MainFrame extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItemSolexaQAActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrameBismarkGenoIndex bismarkGenoIndex = null;
+        bismarkGenoIndex = new FrameBismarkGenoIndex();
+        desktop.add(bismarkGenoIndex);
+        bismarkGenoIndex.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItemSolexaQA;
