@@ -5,11 +5,13 @@
  */
 package com.readbio.readbs.Frames.Panels;
 
-import com.readbio.readbs.pipeline.ProcessWorker;
+import com.readbio.readbs.pipeline.ProcessWorkerMul;
+import com.readbio.readbs.pipeline.ProcessWorkerSin;
 import com.readbio.readbs.pipeline.SolexaQACMD;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -22,7 +24,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class PanelSolexaQASE extends javax.swing.JPanel {
 
     private String projectDir = null;
-    private ProcessWorker processWorkerMonitor;
+    private ProcessWorkerSin processWorkerMonitor;
    
     /**
      * Creates new form PanelSolexaQASE
@@ -191,22 +193,16 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
         } catch (IOException ex) {
             Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
         }
+        ArrayList<String[]> commandLines = null;
         try {
-            String[] commandLine = solexaQACMD.getDynamicTrimCMD(jTextRead.getText(),
-                    jTxtSampleName.getText(),
-                    jTxtProbCutCutoff.getText());
-            ProcessWorker pw = new ProcessWorker(commandLine, jTxtOutMessage, jProgressBar, jButtonTrimReads);
-            processWorkerMonitor = pw;
-            pw.execute();
-            
-            String[] lengthSortSECMD = solexaQACMD.getLengthSortCMD(jTextRead.getText(), jTxtSampleName.getText(), jTxtLengthCutoff.getText());
-            new ProcessWorker(lengthSortSECMD, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
+            commandLines = solexaQACMD.getSolexaCMD(jTextRead.getText(),
+                    jTxtSampleName.getText(),jTxtProbCutCutoff.getText(), jTxtLengthCutoff.getText());
         } catch (IOException ex) {
             Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
-        }           
-        
+        }
+        new ProcessWorkerMul(commandLines, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
     }//GEN-LAST:event_jButtonTrimReadsActionPerformed
 
     private void jButtonChooseRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseRead1ActionPerformed

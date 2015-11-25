@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +31,35 @@ public final class SolexaQACMD {
     public SolexaQACMD(String proDir) throws IOException{
         this.setProjectDir(proDir);
         this.solexaQAExe = getSolexaQAPath();
+    }
+    
+    // return ArrayList<String[]> for SE reads
+    public ArrayList<String[]> getSolexaCMD(String fastqPath1, 
+                                        String temSampleName, 
+                                        String probCutCutoff,
+                                        String lengthCutoff) throws IOException, InterruptedException{ 
+        ArrayList<String[]> commandLines = new ArrayList<>();
+        String[] cmdDynamicTrimR1 = getDynamicTrimCMD(fastqPath1, temSampleName, probCutCutoff);
+        String[] cmdLenthSort = getLengthSortCMD(fastqPath1, temSampleName, lengthCutoff);
+        commandLines.add(cmdDynamicTrimR1);
+        commandLines.add(cmdLenthSort);
+        return commandLines;
+    }
+    
+    // return ArrayList<String[]> for PE reads
+    public ArrayList<String[]> getSolexaCMD(String fastqPath1, 
+                                        String fastqPath2,
+                                        String temSampleName, 
+                                        String probCutCutoff,
+                                        String lengthCutoff) throws IOException, InterruptedException{ 
+        ArrayList<String[]> commandLines = new ArrayList<>();
+        String[] cmdDynamicTrimR1 = getDynamicTrimCMD(fastqPath1, temSampleName, probCutCutoff);
+        String[] cmdDynamicTrimR2 = getDynamicTrimCMD(fastqPath2, temSampleName, probCutCutoff);
+        String[] cmdLenthSort = getLengthSortCMD(fastqPath1, fastqPath2, temSampleName, lengthCutoff);
+        commandLines.add(cmdDynamicTrimR1);
+        commandLines.add(cmdDynamicTrimR2);
+        commandLines.add(cmdLenthSort);
+        return commandLines;
     }
     
     //test
@@ -51,6 +81,7 @@ public final class SolexaQACMD {
         return dynamicTrimCMD;
     }   
     
+    // getLengthSortCMD for PE reads
     public String[] getLengthSortCMD(String fastqPath1, 
                                         String fastqPath2,
                                         String temSampleName, 
@@ -63,6 +94,7 @@ public final class SolexaQACMD {
         return lengthSortCMD;
     }
     
+    // getLengthSortCMD for SE reads
     public String[] getLengthSortCMD(String fastqPath1, 
                                         String temSampleName, 
                                         String lengthCutoff) {

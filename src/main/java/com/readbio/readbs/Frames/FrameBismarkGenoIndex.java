@@ -6,7 +6,7 @@
 package com.readbio.readbs.Frames;
 
 import com.readbio.readbs.pipeline.BismarkGenoIndexCMD;
-import com.readbio.readbs.pipeline.ProcessWorker;
+import com.readbio.readbs.pipeline.ProcessWorkerSin;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -195,7 +195,7 @@ public class FrameBismarkGenoIndex extends javax.swing.JInternalFrame {
         }else{
             try {
                 commandLine = bismarkGenoIndexCMD.getBismarkGenoIndexCMD(dirName);              
-                new ProcessWorker(commandLine, jTxtOutMessage, jProgressBar, jButtonStart).execute();
+                new ProcessWorkerSin(commandLine, jTxtOutMessage, jProgressBar, jButtonStart).execute();
             } catch (IOException | InterruptedException ex) {
                 Logger.getLogger(FrameBismarkGenoIndex.class.getName()).log(Level.SEVERE, null, ex);
             }

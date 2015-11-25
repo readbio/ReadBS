@@ -19,17 +19,17 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 
 /**
- *
+ * Process one command. Commands can be passed using List<String[]>.
  * @author xie186
  */
-public class ProcessWorker extends SwingWorker<Boolean, String> {
+public class ProcessWorkerSin extends SwingWorker<Boolean, String> {
     private final String[] commondLine;
     private JTextArea textArea;
     private JProgressBar jProgressBar;
     private JButton jButtonStart;
     private String orijButtonStartText;
     
-    public ProcessWorker(String[] command, JTextArea textArea, JProgressBar jProgressBar, JButton jButtonStart){
+    public ProcessWorkerSin(String[] command, JTextArea textArea, JProgressBar jProgressBar, JButton jButtonStart){
         this.commondLine = command;
         this.textArea = textArea;
         this.jProgressBar = jProgressBar;  
@@ -88,9 +88,9 @@ public class ProcessWorker extends SwingWorker<Boolean, String> {
             JOptionPane.showMessageDialog(null, "Task Completed");
             
         } catch (InterruptedException ex) {
-            Logger.getLogger(ProcessWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcessWorkerSin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ExecutionException ex) {
-            Logger.getLogger(ProcessWorker.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProcessWorkerSin.class.getName()).log(Level.SEVERE, null, ex);
         }
        
     }    
