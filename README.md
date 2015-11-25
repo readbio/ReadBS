@@ -15,3 +15,6 @@ Mose bench researcher don't have any skilles of System terminal (Linux, Mac and 
 ### How does ReadBS work?
 For read trimming, ReadBS invoke SolexaQA to accomplish this task. Then ReadBS can invoke bismark to do read mapping and methylation calling. If we need to compare two methylomes, we can use ReadBS::DMR tool to identify differentially methylated regions. 
 ## Obtaining ReadBS
+## Input files.
+Input files can must be gzip-compressed (ending in .gz). 
+
