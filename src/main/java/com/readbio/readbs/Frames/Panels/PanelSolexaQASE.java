@@ -5,7 +5,6 @@
  */
 package com.readbio.readbs.Frames.Panels;
 
-import com.readbio.readbs.pipeline.CallSolexaQA;
 import com.readbio.readbs.pipeline.ProcessWorker;
 import com.readbio.readbs.pipeline.SolexaQACMD;
 import java.io.File;
@@ -14,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -22,6 +22,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class PanelSolexaQASE extends javax.swing.JPanel {
 
     private String projectDir = null;
+    private ProcessWorker processWorkerMonitor;
    
     /**
      * Creates new form PanelSolexaQASE
@@ -58,6 +59,7 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
         jTxtLengthCutoff = new javax.swing.JTextField();
         jLabProbCut = new javax.swing.JLabel();
         jTxtProbCutCutoff = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTxtOutMessage = new javax.swing.JTextArea();
         jProgressBar = new javax.swing.JProgressBar();
@@ -74,11 +76,6 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
 
         jTextRead.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq");
-        jTextRead.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextReadActionPerformed(evt);
-            }
-        });
 
         jButtonChooseRead1.setText("Choose Read");
         jButtonChooseRead1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,12 +101,21 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
 
         jTxtProbCutCutoff.setText("0.05");
 
+        jButton1.setText("Cancel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDynamicTrimLayout = new javax.swing.GroupLayout(jPanelDynamicTrim);
         jPanelDynamicTrim.setLayout(jPanelDynamicTrimLayout);
         jPanelDynamicTrimLayout.setHorizontalGroup(
             jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDynamicTrimLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonTrimReads))
             .addGroup(jPanelDynamicTrimLayout.createSequentialGroup()
                 .addComponent(jButtonChooseRead1)
@@ -145,7 +151,9 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
                     .addComponent(jTextRead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonChooseRead1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButtonTrimReads)
+                .addGroup(jPanelDynamicTrimLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonTrimReads)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -187,7 +195,12 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
             String[] commandLine = solexaQACMD.getDynamicTrimCMD(jTextRead.getText(),
                     jTxtSampleName.getText(),
                     jTxtProbCutCutoff.getText());
-            new ProcessWorker(commandLine, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
+            ProcessWorker pw = new ProcessWorker(commandLine, jTxtOutMessage, jProgressBar, jButtonTrimReads);
+            processWorkerMonitor = pw;
+            pw.execute();
+            
+            String[] lengthSortSECMD = solexaQACMD.getLengthSortCMD(jTextRead.getText(), jTxtSampleName.getText(), jTxtLengthCutoff.getText());
+            new ProcessWorker(lengthSortSECMD, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
         } catch (IOException ex) {
             Logger.getLogger(PanelSolexaQASE.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -207,9 +220,12 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
         jTextRead.setText(filename);
     }//GEN-LAST:event_jButtonChooseRead1ActionPerformed
 
-    private void jTextReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextReadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextReadActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        processWorkerMonitor.cancel(true);
+        if(processWorkerMonitor.isCancelled()){
+            JOptionPane.showMessageDialog(null, "Task Canceled");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void setProjectDir(String proDir) throws URISyntaxException, IOException{
         projectDir = proDir;
@@ -220,6 +236,7 @@ public class PanelSolexaQASE extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonChooseRead1;
     private javax.swing.JButton jButtonTrimReads;
     private javax.swing.JLabel jLabProbCut;

@@ -74,7 +74,7 @@ public class PanelSolexaQAPE extends javax.swing.JPanel {
         jLabel1.setText("Sample Name:");
         jLabel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray, java.awt.Color.lightGray));
 
-        jTextRead1.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq");
+        jTextRead1.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test_R1.fq.gz");
 
         jButtonChooseRead1.setText("Choose R1:");
         jButtonChooseRead1.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +107,7 @@ public class PanelSolexaQAPE extends javax.swing.JPanel {
             }
         });
 
-        jTextRead2.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq");
+        jTextRead2.setText("/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test_R2.fq.gz");
 
         javax.swing.GroupLayout jPanelDynamicTrimLayout = new javax.swing.GroupLayout(jPanelDynamicTrim);
         jPanelDynamicTrim.setLayout(jPanelDynamicTrimLayout);
@@ -208,27 +208,25 @@ public class PanelSolexaQAPE extends javax.swing.JPanel {
                     jTxtSampleName.getText(),
                     jTxtProbCutCutoff.getText());
             
-            cmdStrLenthSort = solexaQACMD.getLengthSortPECMD(jTextRead1.getText(),
+            cmdStrLenthSort = solexaQACMD.getLengthSortCMD(jTextRead1.getText(),
                     jTextRead2.getText(),
                     jTxtSampleName.getText(),
                     jTxtLengthCutoff.getText()
                     );
-            
-        } catch (IOException ex) {
-            Logger.getLogger(PanelSolexaQAPE.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+            new ProcessWorker(cmdStrDynamicTrimR2, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(PanelSolexaQAPE.class.getName()).log(Level.SEVERE, null, ex);
         }
-        new ProcessWorker(cmdStrDynamicTrimR1, jTxtOutMessage, jProgressBar).execute();
-        new ProcessWorker(cmdStrDynamicTrimR2, jTxtOutMessage, jProgressBar).execute();
-        new ProcessWorker(cmdStrLenthSort, jTxtOutMessage, jProgressBar).execute();
+        new ProcessWorker(cmdStrDynamicTrimR1, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
+        new ProcessWorker(cmdStrDynamicTrimR2, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
+        new ProcessWorker(cmdStrLenthSort, jTxtOutMessage, jProgressBar, jButtonTrimReads).execute();
     }//GEN-LAST:event_jButtonTrimReadsActionPerformed
     
     //Choose Read1 file
     private void jButtonChooseRead1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseRead1ActionPerformed
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("fq.gz", "fastq.gz");
-        chooser.setFileFilter(filter);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Gzip File","gz");
+        chooser.addChoosableFileFilter(filter);
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();
@@ -238,8 +236,8 @@ public class PanelSolexaQAPE extends javax.swing.JPanel {
     //Choose Read2 file
     private void jButtonChooseRead2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChooseRead2ActionPerformed
         JFileChooser chooser = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("fq.gz", "fastq.gz");
-        chooser.setFileFilter(filter);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Gzip File","gz");
+        chooser.addChoosableFileFilter(filter);
         chooser.showOpenDialog(null);
         File f = chooser.getSelectedFile();
         String filename = f.getAbsolutePath();

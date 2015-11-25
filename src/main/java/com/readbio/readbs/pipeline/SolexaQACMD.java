@@ -51,7 +51,7 @@ public final class SolexaQACMD {
         return dynamicTrimCMD;
     }   
     
-    public String[] getLengthSortPECMD(String fastqPath1, 
+    public String[] getLengthSortCMD(String fastqPath1, 
                                         String fastqPath2,
                                         String temSampleName, 
                                         String lengthCutoff) {
@@ -63,7 +63,7 @@ public final class SolexaQACMD {
         return lengthSortCMD;
     }
     
-    public String[] getLengthSortPECMD(String fastqPath1, 
+    public String[] getLengthSortCMD(String fastqPath1, 
                                         String temSampleName, 
                                         String lengthCutoff) {
         String trimmedRead1 = fastqPath1.substring(0, fastqPath1.lastIndexOf(".") +1) + "trimmed.gz";
@@ -141,11 +141,11 @@ public final class SolexaQACMD {
             System.out.println("Creating outputdir: " + temOutDir + ". Code in: " + this.getClass().getName());
         }else{
             if(f.isDirectory()){
-                System.out.println("Error: File already exists and is not a directory: " + temOutDir +
+                System.out.println("Error: File already exists and is a directory: : " + temOutDir +
                                     ". Code in: " + this.getClass().getName() + ". "
                                     + "Line number: " + this.getLineNumber());
             }else{
-                System.out.println("File already exists and is a directory: " + temOutDir +
+                System.out.println("File already exists and is not a directory: " + temOutDir +
                                     ". Code in: " + this.getClass().getName() + ". "
                                     + "Line number: " + this.getLineNumber());
             }

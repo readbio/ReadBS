@@ -153,7 +153,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextRead1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq"/>
+            <Property name="text" type="java.lang.String" value="/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test_R1.fq.gz"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButtonChooseRead1">
@@ -222,7 +222,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextRead2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test.fq"/>
+            <Property name="text" type="java.lang.String" value="/scratch/conte/x/xie186/zhulab/JavaApp/ReadBSApp/test_R2.fq.gz"/>
           </Properties>
         </Component>
       </SubComponents>

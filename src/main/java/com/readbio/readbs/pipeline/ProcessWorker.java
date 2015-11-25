@@ -29,18 +29,12 @@ public class ProcessWorker extends SwingWorker<Boolean, String> {
     private JButton jButtonStart;
     private String orijButtonStartText;
     
-    public ProcessWorker(String[] command, JTextArea textArea, JProgressBar jProgressBar){
-        this.commondLine = command;
-        this.textArea = textArea;
-        this.jProgressBar = jProgressBar;    
-    }
-    
     public ProcessWorker(String[] command, JTextArea textArea, JProgressBar jProgressBar, JButton jButtonStart){
         this.commondLine = command;
         this.textArea = textArea;
         this.jProgressBar = jProgressBar;  
         this.jButtonStart = jButtonStart;
-        this.orijButtonStartText = new String(jButtonStart.getText());
+        this.orijButtonStartText = jButtonStart.getText();
     }
     
     @Override
