@@ -6,7 +6,6 @@
 package com.readbio.readbs.Frames;
 
 import com.readbio.readbs.Frames.Panels.PanelSolexaQAPE;
-import com.readbio.readbs.Frames.Panels.PanelSolexaQAPEBak;
 import com.readbio.readbs.Frames.Panels.PanelSolexaQASE;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -40,12 +39,12 @@ public final class FrameSolexaQA extends javax.swing.JInternalFrame {
      */
     public FrameSolexaQA(String proDir) throws URISyntaxException, IOException {
         
-      super("Document #" + (++openFrameCount), 
+        super("Document #" + (++openFrameCount), 
               true, //resizable
               true, //closable
               true, //maximizable
               true);//iconifiable
-         initComponents();
+        initComponents();
         this.setProjectDir(proDir);
         SolexaQAPE = new PanelSolexaQAPE(this.getProjectDir());
         SolexaQASE = new PanelSolexaQASE(this.getProjectDir());
@@ -59,7 +58,7 @@ public final class FrameSolexaQA extends javax.swing.JInternalFrame {
         DynamicPanel.add(SolexaQASE, c);
         SolexaQAPE.setVisible(true);
         SolexaQASE.setVisible(false);
-        setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
+        this.setLocation(xOffset*openFrameCount, yOffset*openFrameCount);
     }
 
     /**
@@ -111,11 +110,10 @@ public final class FrameSolexaQA extends javax.swing.JInternalFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
                 .addComponent(peRead)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seRead)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         DynamicPanel.setBackground(new java.awt.Color(244, 244, 244));
@@ -125,7 +123,7 @@ public final class FrameSolexaQA extends javax.swing.JInternalFrame {
         DynamicPanel.setLayout(DynamicPanelLayout);
         DynamicPanelLayout.setHorizontalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 616, Short.MAX_VALUE)
         );
         DynamicPanelLayout.setVerticalGroup(
             DynamicPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,15 +144,17 @@ public final class FrameSolexaQA extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(DynamicPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 274, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel1.getAccessibleContext().setAccessibleDescription("Choose Run Type");
 
-        setBounds(0, 0, 634, 413);
+        setBounds(0, 0, 773, 456);
     }// </editor-fold>//GEN-END:initComponents
 
     private void peReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_peReadActionPerformed

@@ -5,29 +5,33 @@
  */
 package com.readbio.readbs;
 
+import com.readbio.readbs.Frames.FrameBismark;
 import com.readbio.readbs.Frames.FrameBismarkGenoIndex;
 import com.readbio.readbs.Frames.FrameSolexaQA;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Shaojun
  */
-public class MainFrame extends javax.swing.JFrame {
+public final class MainFrame extends javax.swing.JFrame {
     
     // use this number to control the location of internalFrame using setLocation()
 
     private String projectDir;
     /**
      * Creates new form ReadBS
-     * @throws java.net.URISyntaxException
-     * @throws java.io.IOException
+     * @throws java.net.URISyntaxException URISyntaxException
+     * @throws java.io.IOException IOException
      */
     public MainFrame() throws URISyntaxException, IOException {
         initComponents();
+        setFrameSize();
         this.setProjectDir(ReadBSApp.getProjectDir());
         //this.jLabelProjectDir.setText(projectDir);
         this.setTitle("Working directory" + this.getProjectDir());
@@ -56,6 +60,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItemSolexaQA = new javax.swing.JMenuItem();
+        jMenuItemBismark = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -103,6 +108,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
         jMenu2.add(jMenuItemSolexaQA);
+
+        jMenuItemBismark.setText("BismarkMapping");
+        jMenuItemBismark.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBismarkActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItemBismark);
 
         jMenuBar1.add(jMenu2);
 
@@ -168,6 +181,12 @@ public class MainFrame extends javax.swing.JFrame {
         bismarkGenoIndex.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jMenuItemBismarkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBismarkActionPerformed
+        FrameBismark frameBismark = new FrameBismark();
+        desktop.add(frameBismark);
+        frameBismark.setVisible(true);
+    }//GEN-LAST:event_jMenuItemBismarkActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,6 +240,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItemBismark;
     private javax.swing.JMenuItem jMenuItemSolexaQA;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
@@ -234,4 +254,11 @@ public class MainFrame extends javax.swing.JFrame {
         projectDir = temProjectDir;
     }
     
+    //Set default frame size
+    private void setFrameSize(){
+        //int screenWidth  = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        //int heightHeight = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        //this.setSize((int)0.8*screenWidth, (int)0.8*heightHeight);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
 }

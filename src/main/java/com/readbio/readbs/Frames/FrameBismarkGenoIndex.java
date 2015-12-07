@@ -5,6 +5,7 @@
  */
 package com.readbio.readbs.Frames;
 
+import static com.readbio.readbs.Frames.FrameSolexaQA.xOffset;
 import com.readbio.readbs.pipeline.BismarkGenoIndexCMD;
 import com.readbio.readbs.pipeline.ProcessWorkerSin;
 import java.io.File;
@@ -22,6 +23,7 @@ public class FrameBismarkGenoIndex extends javax.swing.JInternalFrame {
 
     private String dirName = null;
     public static int openFrameBismarkGenoIndexCount = 0;
+    static final int xOffset = 10, yOffset = 10;
     /**
      * Creates new form NewJInternalFrame
      */
@@ -33,6 +35,7 @@ public class FrameBismarkGenoIndex extends javax.swing.JInternalFrame {
               true);//iconifiable
         initComponents();
         dirName = jTxtFieldGenoDir.getText();
+        setLocation(xOffset*openFrameBismarkGenoIndexCount, yOffset*openFrameBismarkGenoIndexCount);
     }
 
     /**
