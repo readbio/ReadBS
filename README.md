@@ -1,4 +1,5 @@
-# ReadBS
+# Project not finished yet! Please wait!
+# ReadBS 
 A GUI packages to processing BS-seq data
 
 ### Prerequisites
